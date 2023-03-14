@@ -34,16 +34,19 @@ body {
 	font-weight: 700;
 }
 
-form {
+form, input, label{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 50%;
-	
+	width: 100%;
 	font-size: 2rem;
 	font-weight: 200;
+	color: white;
+	opacity: 0.8;
 }
+
+
 
 span {
 	background-image: linear-gradient(
@@ -61,8 +64,9 @@ span {
 	padding: 1rem 2rem;
 }
 
-
+fieldset {
+	border: 0;
+}
 legend {
     font-weight: 400;
-	contenteditable: false;
 }
