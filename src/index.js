@@ -16,7 +16,7 @@ fieldset.id = 'book-add-fieldset';
 fieldset.name = 'book-add-fieldset';
 
 const legend = document.createElement('legend');
-legend.textContent = 'Add New Book';
+legend.textContent = 'Sign Up Here:';
 fieldset.appendChild(legend);
 
 // Section generator function
@@ -48,9 +48,11 @@ function createBookSection(labelName, inputType, inputId, inputPlaceholder, inpu
 	section.appendChild(input);
 }
 
-createBookSection('*Title:', 'input', 'title', 'Enter title');
-createBookSection('*Author:', 'input', 'author', 'Enter author');
-createBookSection('*Pages:', 'input', 'number', 'Enter pages');
+createBookSection('Email:*', 'input', 'email', 'example@odin.com');
+createBookSection('Country:*', 'input', 'author', 'United States');
+createBookSection('Zip Code: *', 'input', 'number', 'Enter pages');
+createBookSection('Create Password: *', 'input', 'number', 'Enter pages');
+createBookSection('Confirm Password: *', 'input', 'number', 'Enter pages');
 
 const formBtn = document.createElement('button');
 formBtn.type = 'submit';
