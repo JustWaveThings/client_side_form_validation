@@ -1,8 +1,7 @@
 import colbert from './images/colbert_high_five.gif';
 
 
-
-function createImage(src, alt,  width = '600', height = '400', ) {
+function createImage(src, alt,  width = '600', height = '400') {
 	const img = new Image();
 	img.src = src;
 	img.alt = alt;
@@ -16,7 +15,7 @@ const successPage = (() => {
 const submitSuccessContainer = document.createElement('div');
 submitSuccessContainer.classList.add('submit-success-container');
 
-const highFiveImage = createImage(colbert, 'Stephen Colbert High Five', '600', '400');
+const highFiveImage = createImage(colbert, 'Stephen Colbert High Five Gif from Colbert Report', '600', '400');
 submitSuccessContainer.appendChild(highFiveImage);
 
 const returnMessage = document.createElement('h2');
@@ -24,6 +23,8 @@ returnMessage.textContent = 'You have successfully signed up!';
 submitSuccessContainer.appendChild(returnMessage);
 
 const returnMessage2 = document.createElement('button');
+returnMessage2.type = 'button';
+returnMessage2.classList.add('return-btn');
 returnMessage2.textContent = 'Sign Up Again?';
 submitSuccessContainer.appendChild(returnMessage2);
 

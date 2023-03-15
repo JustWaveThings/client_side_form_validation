@@ -1,30 +1,32 @@
 import './style.css';
-import form from './signup-form';
+import signupForm from './signup-form';
 import successPage from './highFive';
-import test from './formValidation';
 
-// eslint-disable-next-line prefer-const
-let submitSuccess = false;
-
-function pageSwitcher(){
-    // this will be set by  the sign up button actually working,  even though we aren't submiting a form... I have to figure that out  && the button on the success page to go back and submit another sign up. 
-
-    // when submit happens it should change the submitSuccess flag to true, and when the sign up again button is clicked, it should be set back to false.
-}
-
-function displayContainer(){
-    
+function displayContainer(bool) {
     const body = document.querySelector('body');
-    if (submitSuccess) {
+    if (bool) {
+        while (body.children.length > 1) {
+            body.removeChild(body.children[1]);
+        }
         body.appendChild(successPage);
+        const signUpAgainButton = document.querySelector('.return-btn');
+        
+        signUpAgainButton?.addEventListener('click', () => {
+            const newFlag = false;
+            displayContainer(newFlag);
+        });
     }
-    if (!submitSuccess) {
-        body.appendChild(form);
+    if (!bool) {
+        while (body.children.length > 1) {
+            body.removeChild(body.children[1]);
+        }
+        body.appendChild(signupForm);
+        const submitButton = document.querySelector('#btn');
+        submitButton?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const newFlag = true;
+            displayContainer(newFlag);
+        });
     }
-    const allInputs = document.querySelectorAll('input');
-    console.log(allInputs)
 }
-displayContainer()
-
-
-
+displayContainer(false);
