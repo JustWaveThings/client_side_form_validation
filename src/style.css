@@ -5,6 +5,7 @@
 }
 
 
+
 body {
 	background-color: black;
 	color: rgba(209, 209, 209, 0.26);
@@ -32,7 +33,7 @@ body {
 	font-weight: 700;
 }
 
-form, input, button{
+form, input, .return-btn{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -44,26 +45,33 @@ form, input, button{
 	opacity: 0.8;	
 }
 
-input, button {
-	background-color: rgb(138, 138, 138);
+.form-control{
+	display: flex;
+	font-size: 2rem;
+	font-weight: 200;
+	color: white;
+	opacity: 0.8;
 
-	
 }
-button#btn {
+	
+
+input#btn, .return-btn{
 	width:  30%;
 	align-self: center;
-
 }
 
-input{
+
+input, .return-btn{
 	flex-grow: 1;
-	appearance: none;
-	
+	background-color: rgb(138, 138, 138);
+	align-self: center;
 }
 label{
 	flex-basis: 40%;
-	text-align: right;
 	font-size: 1.5rem;
+	text-align: end;
+	padding-right: .5rem;
+	align-self: center;
 }
 
 input:focus-within, button:focus-within{
@@ -71,7 +79,7 @@ input:focus-within, button:focus-within{
 	
 }
 
-#email:invalid,
+/* #email:invalid,
 #country:invalid,
 #zip:invalid,
 #password:invalid,
@@ -84,8 +92,8 @@ border: 8px dashed red;
 #zip:valid,
 #password:valid,
 #password2:valid{
-border: 8px solid green;
-}
+border: 8px solid green; 
+} */
 
 #email:focus,
 #country:focus,
@@ -123,16 +131,13 @@ span {
 
 .form-control {
 	display: flex;
-	
 	justify-content: center;
 	align-items: flex-start;
-	width: 100%;
 	font-size: 2rem;
 	font-weight: 200;
 	color: white;
 	opacity: 0.8;
 	gap: .2rem;
-	
 }
 
 fieldset {
@@ -141,8 +146,15 @@ fieldset {
 	flex-direction: column;
 	gap: 1rem;
 	border: 0;
-	width: 80dvw;
+	width: 60dvw;
 }
+
 legend {
     font-weight: 400;
+}
+
+.submit-success-container{
+	display: flex;
+	flex-direction: column;
+
 }

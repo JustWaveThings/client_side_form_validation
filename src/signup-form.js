@@ -1,3 +1,4 @@
+
 // wrap in iffe
 const signupForm = (() => {
 
@@ -5,7 +6,6 @@ const form = document.createElement('form');
 form.id = 'Sign-up-form';
 form.name = 'Sign-up-form';
 form.noValidate= true;
-
 
 const fieldset = document.createElement('fieldset');
 fieldset.id = 'signup-fieldset';
@@ -16,7 +16,7 @@ legend.textContent = 'Sign Up Here:';
 fieldset.appendChild(legend);
 
 
-function createFormSection(labelName, inputType, inputId, inputPlaceholder, autocomplete, inputRequired = false ) {
+function createFormSection(labelName, inputType, inputName, inputId, inputPlaceholder, autocomplete, pattern, inputRequired = true ) {
 	const section = document.createElement('div');
 	section.classList.add('form-control');
 	fieldset.appendChild(section);
@@ -26,37 +26,25 @@ function createFormSection(labelName, inputType, inputId, inputPlaceholder, auto
 	label.setAttribute('for', inputId);
 	section.appendChild(label);
 
-	const input = document.createElement(inputType);
+	const input = document.createElement('input');
 	input.id = inputId;
-	input.name = inputId;
+	input.name = inputName;
 	input.type = inputType;
 	input.placeholder = inputPlaceholder;
 	input.required = inputRequired;
 	input.autocomplete = autocomplete;
+	input.pattern = pattern;
 	if (labelName === 'Zip Code*:') {
 		input.inputmode = 'numeric';
 	}	
-	if (inputId === 'country') {
-		input.type = 'text';
-	}
-	if (labelName === 'Confirm Password*:') {
-		input.type = 'password';
-	}
 	section.appendChild(input);
-	// error message
-	const error = document.createElement('span');
-	error.classList.add(`${inputId}-error`);
-	error.style.display = 'none';
-	error.ariaLive = 'polite';
-	section.appendChild(error);
-
 }
 
-createFormSection('Email*:', 'input', 'email', 'example@odin.com', 'email');
-/* createFormSection('Country*:', 'input', 'country', 'United States', 'country');
-createFormSection('Zip Code*:', 'input', 'zip', '00000', 'postal-code');
-createFormSection('Create Password*:', 'input', 'password', 'Create Unique Password', 'new-password');
-createFormSection('Confirm Password*:', 'input', 'passwordConfirm', 'Confirm Password', 'new-password'); */
+createFormSection('Email*:', 'email', 'email', 'email', 'example@odin.com', 'email', '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$');
+createFormSection('Country*:', 'text', 'country', 'country', 'United States', 'country');
+createFormSection('Zip Code*:', 'text', 'zip', 'zip', '00000', 'postal-code', '\\d{5}');
+createFormSection('Create Password*:', 'password', 'password', 'password', 'Create Unique Password', 'new-password', '^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$');
+createFormSection('Confirm Password*:', 'password', 'passwordConfirm', 'passwordConfirm', 'Confirm Password', 'new-password'); 
 
 const formBtn = document.createElement('input');
 formBtn.type = 'submit';

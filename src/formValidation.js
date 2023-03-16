@@ -5,117 +5,116 @@
 export default function lostFocus(field) {
     field.forEach((el) => {
         el.addEventListener('blur', (e) => {whatFieldToTest(e)});
-        console.log(el.name, 'added event listener')
+    
     });
 }
 
 export function removeDefaultValidationStyling(input) {
     input.forEach((el) => {
-        el.classList.remove('invalid');
-        el.classList.remove('valid');
+        el.style.setProperty('border', 'none');
     });
 }
 
 function whatFieldToTest(e){
-    console.log('what field to test ran')
     const focusLost = e.target.id;
-    console.log(focusLost, 'focus lost')
-
     if (focusLost === 'email') {
         validateEmail(focusLost)
     }
-    /* if (focusLost === 'country') {
-        validateCountry()
+    if (focusLost === 'country') {
+        validateCountry(focusLost)
     }
     if (focusLost === 'zip') {
-        validateZip()
+        validateZip(focusLost)
     }
     if (focusLost === 'password') {
-        validateFirstPassword()
+        validateFirstPassword(focusLost)
     }
     if (focusLost === 'passwordConfirm') {
-        validateConfirmPassword()
-    } */
+        validateConfirmPassword(focusLost)
+    } 
 }
 
 
 function validateEmail(el) {
-    const email = document.querySelector(`#${el}`);
-    console.log(email, 'email validate email grab element')
-    if (email.validity.typeMismatch) {
-        email.setCustomValidity("I am expecting an e-mail address!");
-        console.log(`${el.customError} - custom error boolean`)
-        console.log(`invalid email - ${el.valid}`)
-        email.classList.add('invalid');
+    const formEl = document.querySelector(`#${el}`);
+    if (formEl.validity.patternMismatch || formEl.validity.valueMissing) {
+        const message = formEl.setCustomValidity("I am expecting an e-mail address!");
+        formEl.style.removeProperty('border');
+        formEl.style.setProperty('border', '8px solid red');
     } else {
-        email.setCustomValidity("that is an email address");
-        console.log(`${el.customError} - custom error boolean`)
-        console.log('valid email')
-        email.classList.add('valid');
-    }
+        console.log(`valid ${el}`)
+        formEl.style.removeProperty('border');
+        formEl.style.setProperty('border', '8px solid green');
+    } 
+    console.log( 'email', formEl.validity.valid)
 }
 
-
-/* 
-function validateCountry() {
-    const country = document.querySelector('#country');
-    const countryValue = country.value;
-    const countryRegex = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/;
-    if (countryRegex.test(countryValue)) {
-        console.log('valid country');
-        country.classList.add('valid');
-        
+function validateCountry(el) {
+    const formEl = document.querySelector(`#${el}`);
+    const message = formEl.setCustomValidity("!");
+    if (formEl.validity.valueMissing) {
+        console.log(message);
+        formEl.style.removeProperty('border');
+        formEl.style.setProperty('border', '8px solid red');
     } else {
-        console.log('invalid country');
-        country.classList.add('invalid');
-    }
-
+        console.log(`valid ${el.name}`)
+        formEl.style.removeProperty('border');
+        formEl.style.setProperty('border', '8px solid green');
+    } 
+    console.log('country', formEl.validity)
 }
 
-function validateZip() {
-    const zip = document.querySelector('#zip');
-    const zipValue = zip.value;
-    const zipRegex = /^\d{5}(?:[-\s]\d{4})?$/;
-    if (zipRegex.test(zipValue)) {
-        zip.classList.add('valid');
-        zip.classList.remove('invalid');
+function validateZip(el) {
+    const formEl = document.querySelector(`#${el}`);
+    if (formEl.validity.patternMismatch || formEl.validity.valueMissing) {
+        formEl.setCustomValidity("I am expecting a zip code!");
+        console.log(formEl.checkValidity());
+        formEl.style.removeProperty('border');
+        formEl.style.setProperty('border', '8px solid red');
     } else {
-        zip.classList.add('invalid');
-        zip.classList.remove('valid');
+        console.log(`valid ${el.name}`)
+        formEl.style.removeProperty('border');
+        formEl.style.setProperty('border', '8px solid green');
     }
+    console.log('zip', formEl.validity.valid) 
 }
 
-function validateFirstPassword() {
-    const password = document.querySelector('#password');
-    const passwordValue = password.value;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d(?=.*[@$!%*?&]))[A-Za-z\d@$!%*?&]{8,27}$/
-    if (passwordRegex.test(passwordValue)) {
-        console.log('valid password')
-        password.classList.add('valid');
-        password.classList.remove('invalid');
+function validateFirstPassword(el) {
+    const formEl = document.querySelector(`#${el}`);
+
+    if (!formEl.checkValidity()) {
+        const message = formEl.setCustomValidity("Password at least 8 characters long, at least 1 uppercase letter, 1 lowercase letter, and at least one symbol and a max length of 27!");
+        formEl.style.removeProperty('border');
+        formEl.style.setProperty('border', '8px solid red');
     } else {
-        console.log('invalid password')
-        password.classList.add('invalid');
-        password.classList.remove('valid');
-    }
+        console.log(`valid ${el.name}`)
+        formEl.style.removeProperty('border');
+        formEl.style.setProperty('border', '8px solid green');
+    } 
+    console.log('pass 1', formEl.validity.valid)
 }
 
-function validateConfirmPassword() {
+function validateConfirmPassword(el) {
     const password = document.querySelector('#password');
     const passwordValue = password.value;
     const passwordConfirm = document.querySelector('#passwordConfirm');
     const passwordConfirmValue = passwordConfirm.value;
-    if (passwordValue === passwordConfirmValue) {
-        console.log('passwords match')
-        passwordConfirm.classList.add('valid');
-        passwordConfirm.classList.remove('invalid');
+    if (passwordValue !== passwordConfirmValue || passwordConfirm.validity.valueMissing) {
+        const message = passwordConfirm.setCustomValidity("Passwords do not match!");
+        passwordConfirm.style.removeProperty('border');
+        passwordConfirm.style.setProperty('border', '8px solid red');
     } else {
-        console.log('passwords do not match')
-        passwordConfirm.classList.add('invalid');
-        passwordConfirm.classList.remove('valid');
+        passwordConfirm.style.removeProperty('border');
+        passwordConfirm.style.setProperty('border', '8px solid green');
     }
-} */
+    console.log('confirm pass', passwordConfirm.validity.valid) 
+} 
 
+
+function verifySubmitFormCheck() {
+    const submitButton = document.querySelector('#btn');
+    submitButton.disabled = false;
+}
 
 
 

@@ -36,5 +36,7 @@ function displayContainer(bool) {
 displayContainer(false);
 
 const input = document.querySelectorAll('input');
+
 removeDefaultValidationStyling(input);
+// fires event listener on blur to validate input and apply styling /error message
 lostFocus(input);
