@@ -1,6 +1,7 @@
 import './style.css';
 import signupForm from './signup-form';
 import successPage from './highFive';
+import lostFocus, { removeDefaultValidationStyling } from './formValidation';
 
 function displayContainer(bool) {
     const body = document.querySelector('body');
@@ -27,6 +28,13 @@ function displayContainer(bool) {
             const newFlag = true;
             displayContainer(newFlag);
         });
+        
+        
+        
     }
 }
 displayContainer(false);
+
+const input = document.querySelectorAll('input');
+removeDefaultValidationStyling(input);
+lostFocus(input);

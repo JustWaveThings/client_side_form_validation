@@ -45,7 +45,8 @@ form, input, button{
 }
 
 input, button {
-	color: black;
+	background-color: rgb(138, 138, 138);
+
 	
 }
 button#btn {
@@ -56,6 +57,7 @@ button#btn {
 
 input{
 	flex-grow: 1;
+	appearance: none;
 	
 }
 label{
@@ -66,19 +68,42 @@ label{
 
 input:focus-within, button:focus-within{
 	opacity: 1;
-	color: black;
 	
 }
 
-input:valid {
-	border-style: inset;
-	border: 5px solid rgba(0, 255, 0, 0.2);
+#email:invalid,
+#country:invalid,
+#zip:invalid,
+#password:invalid,
+#passwordConfirm:invalid {
+border: 8px dashed red;
 }
 
-input:invalid {
-	border-color: rgba(255, 0, 0, 0.2);
+#email:valid,
+#country:valid,
+#zip:valid,
+#password:valid,
+#password2:valid{
+border: 8px solid green;
 }
 
+#email:focus,
+#country:focus,
+#zip:focus,
+#password:focus,
+#passwordConfirm:focus{
+border: none;
+color: white;
+}
+
+#email[type="email"]
+#country[type="text"],
+#zip[type="number"],
+#password[type="password"],
+#passwordConfirm[type="password"] {
+	appearance: none; 
+	color: white;
+}
 
 span {
 	background-image: linear-gradient(
