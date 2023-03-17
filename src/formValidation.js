@@ -1,36 +1,40 @@
 /* eslint-disable no-use-before-define */
-
 // 
-
 
 export default function lostFocus(field) {
 
     field.forEach((el) => {
+        el.addEventListener('blur', (e) => {
+            e.preventDefault();
+            whatFieldToTest(e);
+            updateSubmitButton(field)
+        });
+        if (el.id === 'passwordConfirm') {
+            updateSubmitButton(field);
+        }
         if (el.id === 'btn') {
-            el.addEventListener('focus', (e) => {
-                updateSubmitButton(field);
-            });
-        } else {
-            el.addEventListener('blur', (e) => { 
-                e.preventDefault();
-                whatFieldToTest(e) 
-                displayReportValidity(e.target)
+            el.addEventListener('click', (e) => {
                 updateSubmitButton(field);
             });
         }
-})
+    }
+    );
 }
 
-function displayReportValidity(inputEl) {
-    console.log(inputEl.validity)
-    inputEl.preventDefault()
-    inputEl.reportValidity()
-}
 
 function updateSubmitButton(field) {
-    const button = document.querySelector('#btn');
-    button.disabled = !allValid;
+    const fieldArray = [...field]
 
+    const allFieldsValid = fieldArray.every((el) => el.validity.valid)
+    const submitButton = document.querySelector('#btn');
+    // if false, disable button.... 
+    if (!allFieldsValid) {
+        submitButton.disabled = true;
+        submitButton.style.cursor = 'not-allowed';
+    } else {
+        submitButton.disabled = false;
+        submitButton.style.cursor = 'pointer';
+    }
 }
 
 
@@ -63,11 +67,12 @@ function whatFieldToTest(e) {
 function validateEmail(el) {
     const formEl = document.querySelector(`#${el}`);
     if (formEl.validity.patternMismatch || formEl.validity.valueMissing) {
-        const message = formEl.setCustomValidity("I am expecting an e-mail address!");
+        formEl.setCustomValidity("I am expecting an e-mail address!");
         formEl.style.removeProperty('border');
         formEl.style.setProperty('border', '8px solid red');
         formEl.reportValidity();
     } else {
+        formEl.setCustomValidity('');
         formEl.style.removeProperty('border');
         formEl.style.setProperty('border', '8px solid green');
     }
@@ -82,6 +87,7 @@ function validateCountry(el) {
         formEl.style.setProperty('border', '8px solid red');
         formEl.reportValidity();
     } else {
+        formEl.setCustomValidity('');
         formEl.style.removeProperty('border');
         formEl.style.setProperty('border', '8px solid green');
     }
@@ -96,26 +102,27 @@ function validateZip(el) {
         formEl.style.setProperty('border', '8px solid red');
         formEl.reportValidity();
     } else {
+        formEl.setCustomValidity('');
         formEl.style.removeProperty('border');
         formEl.style.setProperty('border', '8px solid green');
     }
- console.log('zip', formEl.validity.valid)
+    console.log('zip', formEl.validity.valid)
 }
 
 function validateFirstPassword(el) {
     const formEl = document.querySelector(`#${el}`);
 
     if (formEl.validity.patternMismatch || formEl.validity.valueMissing) {
-        const message = formEl.setCustomValidity("Password at least 8 characters long, at least 1 uppercase letter, 1 lowercase letter, and at least one symbol and a max length of 27!");
+        formEl.setCustomValidity("Password at least 8 characters long, at least 1 uppercase letter, 1 lowercase letter, and at least one symbol and a max length of 27!");
         formEl.style.removeProperty('border');
         formEl.style.setProperty('border', '8px solid red');
         formEl.reportValidity();
     } else {
+        formEl.setCustomValidity('');
         formEl.style.removeProperty('border');
         formEl.style.setProperty('border', '8px solid green');
     }
- console.log('pass 1', formEl.validity.valid)
- console.log('pass 1', formEl.validity)
+    console.log('pass 1', formEl.validity.valid)
 }
 
 function validateConfirmPassword(el) {
@@ -123,17 +130,17 @@ function validateConfirmPassword(el) {
     const passwordValue = password.value;
     const passwordConfirm = document.querySelector('#passwordConfirm');
     const passwordConfirmValue = passwordConfirm.value;
-    console.log({ passwordValue, passwordConfirmValue })
     if (passwordValue !== passwordConfirmValue || passwordConfirm.validity.valueMissing) {
         passwordConfirm.setCustomValidity("Passwords do not match!");
         passwordConfirm.style.removeProperty('border');
         passwordConfirm.style.setProperty('border', '8px solid red');
         passwordConfirm.reportValidity();
     } else {
+        passwordConfirm.setCustomValidity('');
         passwordConfirm.style.removeProperty('border');
         passwordConfirm.style.setProperty('border', '8px solid green');
     }
-    console.log('confirm pass', passwordConfirm.validity)
+    console.log('confirm pass', passwordConfirm.validity.valid)
 }
 
 

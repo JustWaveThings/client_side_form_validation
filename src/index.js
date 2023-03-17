@@ -22,6 +22,8 @@ function displayContainer(bool) {
             body.removeChild(body.children[1]);
         }
         body.appendChild(signupForm);
+        const form = document.querySelector('form');
+        form.reset();   
         const submitButton = document.querySelector('#btn');
         submitButton?.addEventListener('click', (e) => {
             e.preventDefault();
@@ -38,5 +40,5 @@ displayContainer(false);
 const input = document.querySelectorAll('input');
 
 removeDefaultValidationStyling(input);
-// fires event listener on blur to validate input and apply styling /error message
+// fires event listener on blur to validate input and apply styling /error message / validation 
 lostFocus(input);

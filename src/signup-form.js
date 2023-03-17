@@ -34,6 +34,7 @@ function createFormSection(labelName, inputType, inputName, inputId, inputPlaceh
 	input.required = inputRequired;
 	input.autocomplete = autocomplete;
 	input.pattern = pattern;
+	
 	if (labelName === 'Zip Code*:') {
 		input.inputmode = 'numeric';
 	}	
@@ -41,8 +42,8 @@ function createFormSection(labelName, inputType, inputName, inputId, inputPlaceh
 }
 
 createFormSection('Email*:', 'email', 'email', 'email', 'example@odin.com', 'email', '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$');
-createFormSection('Country*:', 'text', 'country', 'country', 'United States', 'country');
-createFormSection('Zip Code*:', 'text', 'zip', 'zip', '00000', 'postal-code', '\\d{5}');
+createFormSection('Country*:', 'text', 'country', 'country', 'United States', 'country', '^[a-zA-Z\\s]*$');
+createFormSection('Zip Code*:', 'text', 'zip', 'zip', '00000', 'postal-code', '\\d{5}', '11111');
 createFormSection('Create Password*:', 'password', 'password', 'password', 'Create Unique Password', 'new-password', '^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$');
 createFormSection('Confirm Password*:', 'password', 'passwordConfirm', 'passwordConfirm', 'Confirm Password', 'new-password', '^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$'); 
 
@@ -51,12 +52,14 @@ formBtn.type = 'submit';
 formBtn.id = 'btn';
 formBtn.name = 'btn';
 formBtn.textContent = 'Sign Up Now';
+/* formBtn.disabled = true;
+formBtn.style.cursor = 'not-allowed'; */
 fieldset.appendChild(formBtn);
 form.appendChild(fieldset);
 
-formBtn.addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) => {
 	e.preventDefault();
-	formBtn.clear()
+	form.clear()
 })
 
 
