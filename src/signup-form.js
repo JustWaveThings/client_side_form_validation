@@ -44,7 +44,7 @@ createFormSection('Email*:', 'email', 'email', 'email', 'example@odin.com', 'ema
 createFormSection('Country*:', 'text', 'country', 'country', 'United States', 'country');
 createFormSection('Zip Code*:', 'text', 'zip', 'zip', '00000', 'postal-code', '\\d{5}');
 createFormSection('Create Password*:', 'password', 'password', 'password', 'Create Unique Password', 'new-password', '^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$');
-createFormSection('Confirm Password*:', 'password', 'passwordConfirm', 'passwordConfirm', 'Confirm Password', 'new-password'); 
+createFormSection('Confirm Password*:', 'password', 'passwordConfirm', 'passwordConfirm', 'Confirm Password', 'new-password', '^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$'); 
 
 const formBtn = document.createElement('input');
 formBtn.type = 'submit';
@@ -52,8 +52,13 @@ formBtn.id = 'btn';
 formBtn.name = 'btn';
 formBtn.textContent = 'Sign Up Now';
 fieldset.appendChild(formBtn);
-
 form.appendChild(fieldset);
+
+formBtn.addEventListener('submit', (e) => {
+	e.preventDefault();
+	formBtn.clear()
+})
+
 
 return form;
 })()
